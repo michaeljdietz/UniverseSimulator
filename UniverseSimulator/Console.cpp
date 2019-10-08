@@ -39,7 +39,16 @@ bool Console::nextCommand() {
 bool Console::dispatchCommand(const std::vector<std::string> command) {
 
 	if (command.at(0) == "set" && command.size() == 3) {
-		_consoleCommand->set(command.at(1), stol(command.at(2)));
+		// TODO: add real and reusable command validation
+		long refId;
+		try {
+			refId = stol(command.at(2));
+		}
+		catch (...) {
+			std::cout << "Error. Set command requires 2nd parameter to be a valid reference ID #\n";
+			return true;
+		}
+		_consoleCommand->set(command.at(1), refId);
 		return true;
 	}
 
@@ -54,17 +63,45 @@ bool Console::dispatchCommand(const std::vector<std::string> command) {
 	}
 
 	if (command.at(0) == "generate" && command.size() == 3) {
-		_consoleCommand->generate(stol(command.at(1)), stol(command.at(2)));
+		// TODO: add real and reusable command validation
+		long start, end;
+		try {
+			start = stol(command.at(1));
+			end = stol(command.at(2));
+		}
+		catch (...) {
+			std::cout << "Error. Please specify valid numbers for start and end reference IDs\n";
+			return true;
+		}
+		_consoleCommand->generate(start, end);
 		return true;
 	}
 
 	if (command.at(0) == "find" && command.size() >= 5) {
-		long skip = 0;
-		if (command.size() >= 6) {
-			skip = stol(command.at(5));
+		long skip;
+		float value;
+
+		try {
+			value = stof(command.at(4));;
+		}
+		catch (...) {
+			std::cout << "Error. Find command requires the 4th parameter to be a valid number.\n";
+			return true;
 		}
 
-		_consoleCommand->find(command.at(1), command.at(2), command.at(3), stof(command.at(4)), skip);
+		try {
+			skip = 0;
+
+			if (command.size() >= 6) {
+				skip = stol(command.at(5));
+			}
+		}
+		catch (...) {
+			std::cout << "Error. Find command requires the 5th parameter to be a valid number.\n";
+			return true;
+		}
+
+		_consoleCommand->find(command.at(1), command.at(2), command.at(3), value, skip);
 		return true;
 	}
 
