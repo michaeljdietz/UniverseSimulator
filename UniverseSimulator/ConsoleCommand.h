@@ -15,6 +15,14 @@ public:
 	void find(const std::string, const std::string, const std::string, const float, const long);
 
 private:
-	std::vector<std::string> commands = {"info", "generate [start refId] [end refId]","set [objectType] [refId]", "find [objectType] [property] [operation] [value] [optional offset]","help", "exit"};
+	std::vector<std::string> commands = {
+		"info", 
+		"generate [start refId] [end refId]",
+		"set [objectType] [refId]", 
+		"find [objectType] [property] [operation] [value] [optional offset]",
+		"help", 
+		"exit"
+	};
+
 	Game* _game;
 };

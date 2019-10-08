@@ -20,7 +20,7 @@ void ConsoleCommand::help() {
 
 	std::cout << "\nobjectType: universe, supercluster, cluster, galaxy\n";
 	std::cout << "properties: childcount, mass, luminosity, majorradius, minorradius, temperature\n";
-	std::cout << "operation: =, <, >, !=\n\n";
+	std::cout << "operation: =, <, >, !=\n";
 }
 
 void ConsoleCommand::set(const std::string objectType, const long refId) {
