@@ -11,7 +11,7 @@ public:
 	void set(const std::string, const long);
 	void info();
 	void list();
-	void generate(const long, const long);
+	void generate(long, long);
 	void find(const std::string, const std::string, const std::string, const float, const long);
 
 private:

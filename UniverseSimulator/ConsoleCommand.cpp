@@ -84,7 +84,7 @@ void ConsoleCommand::list() {
 	std::cout << "\nTotal of " << children.size() << " child objects\n";
 }
 
-void ConsoleCommand::generate(const long startRefId, const long endRefId) {
+void ConsoleCommand::generate(long startRefId, long endRefId) {
 	auto start = std::chrono::high_resolution_clock::now();
 	AstronomicalObject* currentObject = _game->getCurrentObject();
 	if (!currentObject) {
@@ -93,7 +93,11 @@ void ConsoleCommand::generate(const long startRefId, const long endRefId) {
 	}
 
 	for (long i = startRefId; i <= endRefId; ++i) {
-		currentObject->getChild(i);
+		if (currentObject->getChild(i) == nullptr) {
+			endRefId = -1;
+			startRefId = 0;
+			break;
+		}
 	}
 
 	auto finish = std::chrono::high_resolution_clock::now();

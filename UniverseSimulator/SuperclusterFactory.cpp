@@ -86,12 +86,21 @@ Supercluster* SuperclusterFactory::create(Universe* parent, const std::vector<fl
 
 long SuperclusterFactory::generateChildCount() {
 	// TODO: This should be changed to use Press–Schechter formalism to calculate object density (which is going to require a lot of complex mathematics and astrophysics theory background)
+
+	// TODO: Shouldn't we allow for these to cluster by proximity to other superclusters
+	// TODO: check neighbors seed value.  If greater than .97 then increase chance of one here
+	// TODO: check neighbors' neighbors seed value.  If greater than .97 then increase chance of one here (a little less)
+	// TODO: check neighbors' neighbors' neighbors' seed value.  If greater than .97 then increase chance of one here (a little less than less)
+	// TODO: max increase to probability is an additional 3% (that would make it 100%!!!!??)
+	// TODO: max decrease to probability should be the same?
+	// TODO: OR should the increases/decreases be an inverse square distribution... meaning 3% increase, 6% decrease?
+
 	float seed = Random::getInstance()->getRandomNumber(_supercluster->_origin, Random::getInstance()->getNextSeed());
 
 	if (seed < 0.97) {
 		return 0;
 	}
-	else if (seed < 0.97 + 0.03 * 0.46) {
+	else if (seed < 0.97 + 0.03 * 0.46) {	// 97% void, 3% not... 46% of the 3% is a single cluster, the rest are clusters of clusters
 		return 1;
 	}
 	else {

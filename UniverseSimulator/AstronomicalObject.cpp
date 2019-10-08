@@ -128,6 +128,10 @@ AstronomicalObject* AstronomicalObject::getChild(const long refId) {
 		return child;
 	}
 	
+	if (it == _children.end()) {
+		return nullptr;
+	}
+
 	return it->second;
 }
 
